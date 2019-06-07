@@ -1,10 +1,15 @@
 package br.com.senac.dominio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -14,6 +19,11 @@ public class Carro {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	private String nome;
+	
+	@ManyToMany
+	@JoinTable(name = "carro_acessorio", joinColumns = @JoinColumn(name = "acessorio_id"), inverseJoinColumns = @JoinColumn(name = "carro_id"))
+	private List<Acessorio> acessorios = new ArrayList<>();
+	
 	
 	@OneToOne
 	@JoinColumn(name="chave_id")
